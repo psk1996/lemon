@@ -1,0 +1,151 @@
+HTTP协议---超文本传输协议
+是浏览器与服务端之间进行通讯的应用层协议。它规定了
+浏览器与服务端(B/S)之间如何进行通讯，以及通讯的数据
+格式等。
+
+HTTP协议要求客户端(浏览器)与服务端之间发送的大部分
+内容为文本数据。并且该文本所采用的字符集为ISO8859-1
+这是一个欧洲编码，里面不支持中文。所以HTTP协议规定
+的内容部分是不能直接使用中文字符的。
+
+
+HTTP协议现在常用的是1.1版本。之前还有1.0版本
+HTTP协议规定了客户端与服务端之间的通讯规则:
+客户端发起请求(Request)服务端予以处理并给予
+响应(Response).即:它们之间总是采取一问一答的方式
+进行通讯。服务端永远不会主动连接客户端并发送任何内容。
+
+HTTP协议对它们之间通讯的数据也有所定义。
+其中客户端发送给服务端的内容称为请求(Request).
+服务端发送给客户端的内容称为响应(Response).
+它们都有对应的格式定义要求。
+
+
+请求Request
+请求是客户端发送给服务端的内容，它由三部分组成:
+请求行，消息头，消息正文
+
+1:请求行
+请求行是一行字符串(以CRLF结尾)，分为三部分，格式为:
+method url protocol(CRLF)
+例如:
+GET /index.html HTTP/1.1
+请求方式 请求路径 请求使用的HTTP协议版本(CRLF)
+
+注:CR,LF表示ASC编码中定义的回车符与换行符，2进制对应
+的整数值为13,10
+
+
+2:消息头
+消息头是客户端发送给服务端的一些附加信息，有的用来
+说明浏览器信息，说明消息正文内容和长度，请求的地址
+等等。
+消息头是由若干行组成的，每一行为一个消息头。格式如:
+name: value(CRLF)
+当所有的消息头发送完毕后，客户端会单独发送一个CRLF
+表示消息头部分结束。
+例如:
+Host: localhost:8088(CRLF)
+Connection: keep-alive(CRLF)
+Upgrade-Insecure-Requests: 1(CRLF)
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36(CRLF)
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8(CRLF)
+Accept-Encoding: gzip, deflate, br(CRLF)
+Accept-Language: zh-CN,zh;q=0.9(CRLF)(CRLF)
+
+
+3:消息正文
+消息正文是纯2进制数据，是用户提交给服务端的实际内容
+具体该内容共多少字节，并且是什么类型的数据那么浏览器
+会在消息头中使用:Content-Type与Content-Length告知
+服务端。
+不是所有的请求都会含有消息正文。
+
+
+一个完整的请求大致如下：
+GET /index.html HTTP/1.1(CRLF)
+Host: localhost:8088(CRLF)
+Connection: keep-alive(CRLF)
+Upgrade-Insecure-Requests: 1(CRLF)
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36(CRLF)
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8(CRLF)
+Accept-Encoding: gzip, deflate, br(CRLF)
+Accept-Language: zh-CN,zh;q=0.9(CRLF)(CRLF)
+
+
+
+2:响应(response)
+响应是服务端发送给客户端的内容。HTTP协议对响应的格式
+也有做要求。
+
+一个响应应当包含三部分:状态行，响应头，响应正文
+
+
+状态行:
+状态行是一行字符串，以CRLF结尾。状态行分为三部分:
+protocol status_code status_reason(CRLF)
+协议版本 状态代码 状态描述(CRLF)
+
+其中状态代码是由一个3位数字组成，分为五类：
+1xx:保留部分
+2xx:成功，表示服务端成功处理了该请求
+3xx:重定向，服务端希望客户端进行下一步访问操作
+4xx:客户端错误
+5xx:服务端错误
+
+状态代码与对应的描述:
+200    OK
+201    Created
+202    Accepted
+204    No Content
+301    Moved Permanently
+302    Moved Temporarily
+304    Not Modified
+400    Bad Request
+401    Unauthorized
+403    Forbidden
+404    Not Found
+500    Internal Server Error
+501    Not Implemented
+502    Bad Gateway
+503    Service Unavailable
+
+例如:
+HTTP/1.1 200 OK(CRLF)
+
+
+响应头:
+响应头的格式与请求中的消息头一样。是服务端发送给客户
+端的附加信息，有的用来说明服务端信息，有的说明响应
+正文内容等等。
+
+
+响应正文:
+响应正文也是2进制数据，是客户端请求的实际资源数据。
+客户端是通过响应头中是否包含Content-Type与
+Content-Length来得知响应正文的长度与数据类型。所以
+在响应该正文内容时，响应头应当正确的指定这两个头信息
+来说明正文。否则浏览器可能无法正确理解正文内容。
+
+
+一个响应的大致内容如下:
+HTTP/1.1 200 OK(CRLF)
+Content-Type: text/html(CRLF)
+Content-Length: 552(CRLF)(CRLF)
+1010100101010010101......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

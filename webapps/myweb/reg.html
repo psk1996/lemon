@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户注册</title>
+	</head>
+	<body>
+		<center>
+			<h1>欢迎注册</h1>
+			<!-- 
+				form表单
+				表单是用来提交用户输入的信息的。
+				form表单标签中间应当包含若干的<input>元素
+				当表单提交时，这些被包含的输入域中的内容会被提交
+				
+				form上有两个非常重要的属性:
+				1:action,用于指定表单内容提交的路径
+				2:method,用于指定表单提交的方式(GET,POST)
+				
+				通常表单要包含一个"提交按钮"，当用户点击该按钮
+				后表单便会提交。
+				
+				action="reg",这里使用的相对路径还是当前目录，
+				而浏览器中当前目录指的是请求当前页面的目录。
+				所以，请求当前注册页面时的路径为:
+				http://localhost:8088/myweb/reg.html
+				那么，浏览器认为当前目录为:
+				http://localhost:8088/myweb/
+				所以，表单提交路径action="reg",浏览器会提交到:
+				http://localhost:8088/myweb/reg
+				
+			 -->
+			<form action="reg" method="get">
+				<table border="2">
+					<tr>
+						<td>用户名</td>
+						<td><input name="username" type="text" size="32"></td>
+					</tr>
+					<tr>
+						<td>密码</td>
+						<td><input name="password" type="text" size="32"></td>
+					</tr>
+					<tr>
+						<td>昵称</td>
+						<td><input name="nickname" type="text" size="32"></td>
+					</tr>
+					<tr>
+						<td>年龄</td>
+						<td><input name="age" type="text" size="32"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="submit" value="注册">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</center>
+	</body>
+</html>
+
+
+
+
+
